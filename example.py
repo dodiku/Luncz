@@ -5,7 +5,7 @@ csd = '''
 <CsoundSynthesizer>
 
 <CsOptions>
-  -d -o dac -m0
+  -o dac -m0
 </CsOptions>
 
 <CsInstruments>
@@ -32,18 +32,33 @@ a1, a2    pan2      asig, ipan
 
 <CsScore>
 f 0 14400    ; a 4 hours session should be enough
+
+i 1 0 1 0.5 7.06 0.05 0.3 0.5
+;e 1.5
+
 </CsScore>
 </CsoundSynthesizer>
 '''
-cs.compileCsdText(csd)
-cs.start()
+print csd
+ret = cs.compileCsdText(csd)
+if ret == ctcsound.CSOUND_SUCCESS:
+	cs.start()
+	# cs.perform()
+	# cs.reset()
 
-pt = ctcsound.CsoundPerformanceThread(cs.csound())
-pt.play()
+	pt = ctcsound.CsoundPerformanceThread(cs.csound())
+	pt.play()
 
-pt.scoreEvent(False, 'i', (1, 2, 10, 0.5, 8.06, 0.05, 0.3, 0.5))
-pt.scoreEvent(False, 'i', (1, 0.5, 1, 0.5, 9.06, 0.05, 0.3, 0.5))
-pt.scoreEvent(False, 'i', (1, 4.5, 1, 0.5, 9.06, 0.05, 0.3, 0.5))
-# pt.record('b.wav', 1000, 1)
-pt.stop()
-pt.join()
+	# cs.sleep(8000)
+
+	pt.scoreEvent(False, 'i', (1, 0.5, 2, 0.5, 8.06, 0.05, 0.3, 0.5))
+
+	# cs.sleep(8000)
+
+	cs.sleep(4000)
+
+	pt.stop()
+	pt.join()
+
+
+del cs
