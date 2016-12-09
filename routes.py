@@ -1,6 +1,6 @@
 from flask import Flask, render_template
-from OSC import OSCClient, OSCMessage
-import csnd6
+# from OSC import OSCClient, OSCMessage
+import csound
 
 app = Flask(__name__)
 
