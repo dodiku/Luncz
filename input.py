@@ -8,7 +8,7 @@ import csv
 
 # RECORDING A SOUND USING PYAUDIO
 CHUNK = 1024
-FORMAT = pyaudio.paInt32
+FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
 RECORD_SECONDS = 5
@@ -68,16 +68,66 @@ beat_times = librosa.frames_to_time(beat_frames, sr=sr)
 librosa.output.times_csv(CSV_FILENAME, beat_times)
 print ('beat_times.csv done')
 
-# # converting csv to json
-# with open('beat_times.csv') as f:
-#     reader = csv.DictReader(f, fieldnames=['beat'])
-#     rows = list(reader)
-# with open('beat_times.json', 'w') as f:
-#     json.dump(rows, f)
-# print ('beat_times.json done')
 """""""""""""""""""""""""""""""""""""""
 3 - get notes
 """""""""""""""""""""""""""""""""""""""
+# y_harmonic = librosa.effects.harmonic(y)
+# y_harmonic = librosa.effects.harmonic(y)
+# hz = librosa.cqt(y, sr, n_bins=12, fmin=82)
+hz = librosa.feature.chroma_cqt(y=y, sr=sr)
+# hz = librosa.stft(y)
+print (hz)
+print (len(hz))
+print (len(hz[0]))
+
+# notes = librosa.hz_to_note(hz)
+# print (notes)
+
+## GET STRONGEST OCTAVE
+strongest_octave = 0
+strongest_octave_sum = 0
+for octave in range(len(hz)):
+	sum = 0
+	for frame in hz[octave]:
+		sum = sum + frame
+	if sum > strongest_octave_sum:
+		strongest_octave_sum = sum
+		strongest_octave = octave
+
+print ('strongest octave is:')
+print (strongest_octave)
+print ('strength is:')
+print (strongest_octave_sum)
+
+
+## GET HEIGHEST HZ FOR EACH TIME FRAME
+strongest_hz = []
+
+for i in range(len(hz[0])):
+	strongest_hz.append(0)
+
+print ('begining')
+print (strongest_hz)
+
+for frame_i in range(len(hz[0])):
+	# print ('frame begins')
+	for octave_i in range(len(hz)):
+
+		# print (hz[octave_i][frame_i])
+		print (octave_i, hz[octave_i][frame_i])
+		# if hz[octave_i][frame_i] != 1:
+		if hz[octave_i][frame_i] > strongest_hz[frame_i]:
+			strongest_hz[frame_i] = octave_i
+
+
+# for i in range(len(hz[0])):
+# 	for octave_i in range(len(hz)):
+# 		if octave[i] > strongest_hz[i]:
+# 			strongest_hz[i] = octave[i]
+
+# strongest_hz.append(??)
+print ('the strong notes are:')
+print (strongest_hz)
 
 """""""""""""""""""""""""""""""""""""""
 3 - get timbre
