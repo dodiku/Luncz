@@ -11,7 +11,7 @@ CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
-RECORD_SECONDS = 1
+RECORD_SECONDS = 5
 AUDIO_OUTPUT_TYPE = ".wav"
 WAVE_OUTPUT_FILENAME_NO_EXTENSION = "_recordings/" + datetime.datetime.now().isoformat()
 WAVE_OUTPUT_FILENAME = "_recordings/" + datetime.datetime.now().isoformat() + AUDIO_OUTPUT_TYPE
@@ -102,27 +102,33 @@ print (strongest_octave_sum)
 
 ## GET HEIGHEST HZ FOR EACH TIME FRAME
 strongest_hz = []
-
 for i in range(len(hz[0])):
 	strongest_hz.append(0)
+
+notes = []
+for i in range(len(hz[0])):
+	notes.append(0)
 
 print ('begining')
 print (strongest_hz)
 
-for frame_i in range(len(hz[0])): # number of frames
-	print ('frame begins')
-	for octave_i in range(len(hz)): # number of notes * number of octaves
+for frame_i in range(len(hz[0])):
+	# print ('frame begins')
+	strongest_temp = 0
+	for octave_i in range(len(hz)):
 
 		# print (hz[octave_i][frame_i])
-		print (octave_i, hz[octave_i], strongest_hz[frame_i])
-		# print (octave_i, hz[octave_i], strongest_hz[frame_i])
-		# print (strongest_hz[frame_i])
+		print (octave_i, hz[octave_i][frame_i], strongest_temp, strongest_hz[frame_i])
 		# if hz[octave_i][frame_i] != 1:
+		# print (hz[octave_i][frame_i])
+		# print (strongest_hz[frame_i])
+		if hz[octave_i][frame_i] > strongest_temp:
+			strongest_temp = hz[octave_i][frame_i]
+			strongest_hz[frame_i] = octave_i + 1
+			notes[frame_i] = librosa.hz_to_note(hz[octave_i][frame_i])
 
-		if hz[octave_i][frame_i] > strongest_hz[frame_i]:
-			strongest_hz[frame_i] = octave_i
-
-
+# C C# D D# E F F# G G# A  A# B
+# 1 2  3 4  5 6 7  8 9  10 11 12
 # for i in range(len(hz[0])):
 # 	for octave_i in range(len(hz)):
 # 		if octave[i] > strongest_hz[i]:
@@ -131,7 +137,7 @@ for frame_i in range(len(hz[0])): # number of frames
 # strongest_hz.append(??)
 print ('the strong notes are:')
 print (strongest_hz)
-print (len(strongest_hz))
+print (notes)
 
 """""""""""""""""""""""""""""""""""""""
 3 - get timbre
