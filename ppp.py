@@ -137,7 +137,7 @@ for frame_i in range(len(hz[0])):
 # strongest_hz.append(??)
 print ('the strong notes are:')
 print (strongest_hz)
-print (notes)
+# print (notes)
 
 """""""""""""""""""""""""""""""""""""""
 3 - get timbre

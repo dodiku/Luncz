@@ -84,21 +84,20 @@ print (len(hz[0]))
 # print (notes)
 
 ## GET STRONGEST OCTAVE
-strongest_octave = 0
-strongest_octave_sum = 0
-for octave in range(len(hz)):
-	sum = 0
-	for frame in hz[octave]:
-		sum = sum + frame
-	if sum > strongest_octave_sum:
-		strongest_octave_sum = sum
-		strongest_octave = octave
+# strongest_octave = 0
+# strongest_octave_sum = 0
+# for octave in range(len(hz)):
+# 	sum = 0
+# 	for frame in hz[octave]:
+# 		sum = sum + frame
+# 	if sum > strongest_octave_sum:
+# 		strongest_octave_sum = sum
+# 		strongest_octave = octave
 
-print ('strongest octave is:')
-print (strongest_octave)
-print ('strength is:')
-print (strongest_octave_sum)
-
+# print ('strongest octave is:')
+# print (strongest_octave)
+# print ('strength is:')
+# print (strongest_octave_sum)
 
 ## GET HEIGHEST HZ FOR EACH TIME FRAME
 strongest_hz = []
