@@ -5,6 +5,21 @@ import datetime
 import librosa
 import numpy as np
 import csv
+import os
+import shutil
+
+# MOVING ALL EXISTING FILES TO A BACKUP DIRECTORY
+
+source = './_recordings/'
+destination = './_recordings/backup/'
+
+
+old_files = os.listdir(source)
+print (old_files)
+for file in old_files:
+	if not file == ".DS_Store":
+		file_path = source + file
+		shutil.move(file_path, destination) 
 
 # RECORDING A SOUND USING PYAUDIO
 CHUNK = 1024
@@ -67,6 +82,13 @@ CSV_FILENAME = WAVE_OUTPUT_FILENAME_NO_EXTENSION + ".csv"
 beat_times = librosa.frames_to_time(beat_frames, sr=sr)
 librosa.output.times_csv(CSV_FILENAME, beat_times)
 print ('beat_times.csv done')
+
+# WRITING A FILE WITH THE TEMPO
+TEXT_FILENAME = WAVE_OUTPUT_FILENAME_NO_EXTENSION + ".txt"
+bpm_value = open(TEXT_FILENAME, 'w')
+bpm_value.write(str(tempo))
+bpm_value.close()
+
 
 """""""""""""""""""""""""""""""""""""""
 3 - get notes

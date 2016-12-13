@@ -3,7 +3,7 @@ import librosa
 import numpy as np
 import csv
 import ctcsound
-import glob
+# import glob
 import os
 import shutil
 import csv
@@ -14,7 +14,7 @@ old_files = []
 source = './_recordings/'
 destination = './_recordings/backup/'
 
-# MOVING ALL EXISTING FILES TO A BACKUP DIRECTORY
+# # MOVING ALL EXISTING FILES TO A BACKUP DIRECTORY
 # old_files = os.listdir(source)
 # print (old_files)
 # for file in old_files:
@@ -26,8 +26,8 @@ destination = './_recordings/backup/'
 # STARTING CSOUND
 cs = ctcsound.Csound()
 
-# ret = cs.compile_("csound", "-o", "dac", "/Users/drorayalon/Documents/code/#itp/Csound/05-Luncz/Luncz.csd") # new laptop
-ret = cs.compile_("csound", "-o", "dac", "/Users/dodik/Documents/code/#ITP/Csound/05-Luncz/Luncz.csd") # old laptop
+ret = cs.compile_("csound", "-o", "dac", "/Users/drorayalon/Documents/code/#itp/Csound/05-Luncz/Luncz.csd") # new laptop
+# ret = cs.compile_("csound", "-o", "dac", "/Users/dodik/Documents/code/#ITP/Csound/05-Luncz/Luncz.csd") # old laptop
 
 if ret == ctcsound.CSOUND_SUCCESS:
 	cs.start()
