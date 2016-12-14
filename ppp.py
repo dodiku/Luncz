@@ -14,12 +14,12 @@ source = './_recordings/'
 destination = './_recordings/backup/'
 
 
-old_files = os.listdir(source)
-print (old_files)
-for file in old_files:
-	if not file == ".DS_Store":
-		file_path = source + file
-		shutil.move(file_path, destination) 
+# old_files = os.listdir(source)
+# print (old_files)
+# for file in old_files:
+# 	if not file == ".DS_Store":
+# 		file_path = source + file
+# 		shutil.move(file_path, destination) 
 
 # RECORDING A SOUND USING PYAUDIO
 CHUNK = 1024
@@ -140,7 +140,7 @@ for frame_i in range(len(hz[0])):
 	for octave_i in range(len(hz)):
 
 		# print (hz[octave_i][frame_i])
-		print (octave_i, hz[octave_i][frame_i], strongest_temp, strongest_hz[frame_i])
+		# print (octave_i, hz[octave_i][frame_i], strongest_temp, strongest_hz[frame_i])
 		# if hz[octave_i][frame_i] != 1:
 		# print (hz[octave_i][frame_i])
 		# print (strongest_hz[frame_i])
