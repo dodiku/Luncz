@@ -12,7 +12,7 @@ from time import sleep
 new_files = []
 old_files = []
 
-version = 1
+version = 0
 
 # C C# D D# E F F# G G# A  A# B
 # 1 2  3 4  5 6 7  8 9  10 11 12
@@ -140,11 +140,11 @@ if ret == ctcsound.CSOUND_SUCCESS:
 				# ADDING SCORE EVENTS
 				# delay_time = recording_tempo/60*5
 				
-				last_beat = original_beat_times[len(original_beat_times)-1]
-				first_beat = original_beat_times[0]
-				next_first_beat = 5 - last_beat + first_beat
-				repeat = 1
-				number_of_notes = 0
+				# last_beat = original_beat_times[len(original_beat_times)-1]
+				# first_beat = original_beat_times[0]
+				# next_first_beat = 5 - last_beat + first_beat
+				# repeat = 1
+				# number_of_notes = 0
 				# for time in original_beat_times:
 
 
@@ -207,10 +207,12 @@ if ret == ctcsound.CSOUND_SUCCESS:
 				version = version + 1
 				# print ('====== clearing score (that will take 5 seconds) =======')
 				# sleep(0.5)
+				if recording_tempo == 0:
+					recording_tempo = 60
 				print ('====== sending =======')
-				print (100, 0, 1, time, freq, time1, freq1, time2, freq2, time3, freq3, time4, freq4, delta, note_number, 1, version)
+				print (100, 0, 1, time, freq, time1, freq1, time2, freq2, time3, freq3, time4, freq4, delta, note_number, 1, version, recording_tempo)
 				print ('====== end =======')
-				pt.scoreEvent(False, 'i', (100, 0, 1, time, freq, time1, freq1, time2, freq2, time3, freq3, time4, freq4, delta, note_number, 1, version))
+				pt.scoreEvent(False, 'i', (100, 0, 1, time, freq, time1, freq1, time2, freq2, time3, freq3, time4, freq4, delta, note_number, 1, version, recording_tempo))
 
 					# number_of_notes = number_of_notes + 1
 					# print ('number_of_notes:', number_of_notes)
