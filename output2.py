@@ -7,16 +7,9 @@ import ctcsound
 import os
 import shutil
 import csv
-from time import sleep
 
 new_files = []
 old_files = []
-
-version = 1
-
-# C C# D D# E F F# G G# A  A# B
-# 1 2  3 4  5 6 7  8 9  10 11 12
-cpspch_array = [7.00, 7.01, 7.02, 7.03, 7.04, 7.05, 7.06, 7.07, 7.08, 7.09, 7.10, 7.11, 7.12]
 
 source = './_recordings/'
 destination = './_recordings/backup/'
@@ -33,7 +26,7 @@ for file in old_files:
 # STARTING CSOUND
 cs = ctcsound.Csound()
 
-ret = cs.compile_("csound", "-o", "dac", "/Users/drorayalon/Documents/code/#itp/Csound/05-Luncz/Luncz.csd") # new laptop
+ret = cs.compile_("csound", "-o", "dac", "/Users/drorayalon/Documents/code/#itp/Csound/05-Luncz/Luncz2.csd") # new laptop
 # ret = cs.compile_("csound", "-o", "dac", "/Users/dodik/Documents/code/#ITP/Csound/05-Luncz/Luncz.csd") # old laptop
 
 if ret == ctcsound.CSOUND_SUCCESS:
@@ -49,7 +42,6 @@ if ret == ctcsound.CSOUND_SUCCESS:
 		original_beat_times = []
 		tempo_beat_times = []
 		recording_tempo = 1
-		data = []
 
 		print ("-=-=-=-=-=-BEGIN-=-=-=-=-=-")
 
@@ -60,25 +52,14 @@ if ret == ctcsound.CSOUND_SUCCESS:
 				file_path = source + file
 				open_file = open(file_path)
 				text_file = csv.reader(open_file)
-				
-				i = 0
-				for line in text_file:
-					if i == 0:
-						data.append(float(line[0]))
-						i += 1
-					else:
-						data.append(int(line[0]))
 
-					# print ('tempo line:', line)
-					# print (data)
-					# data.append(9)
-				recording_tempo = data[0]
-				print ('tempo float (recording_tempo):', recording_tempo)
-    			print ('data:', data)
+				for line in text_file:
+					print ('tempo line:', line)
+    				recording_tempo = float(line[0])
+    				print ('tempo float (recording_tempo):', recording_tempo)
+
 		for file in new_files:
 			if file.endswith(".csv"):
-
-				# pt.scoreEvent(False, 'i', (100, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3))
 
 				# GETTING DATA FROM CSV FILE
 				print ('csv file:', file)
@@ -145,81 +126,73 @@ if ret == ctcsound.CSOUND_SUCCESS:
 				next_first_beat = 5 - last_beat + first_beat
 				repeat = 1
 				number_of_notes = 0
-				# for time in original_beat_times:
+				
 
 
-				note_number = 0
-				time = 0
-				freq = 220
-				delta = 0
-				try:
-					original_beat_times[0]
-					time1 = original_beat_times[0]
-					freq1 = cpspch_array[data[1]-1]
-					# freq1 = 220
-					# print (data[1]-1, cpspch_array[data[1]-1])
-					note_number = 1
-					delta = 5 - original_beat_times[0]
-				except:
-					time1 = 0
-					freq1 = 0
+				# note_number = 0
+				# time = 0
+				# freq = 220
+				# try:
+				# 	original_beat_times[0]
+				# 	time1 = original_beat_times[0]
+				# 	freq1 = 220
+				# 	note_number = 1
+				# 	delta = 5 - original_beat_times[0]
+				# except:
+				# 	pass
 
-				try:
-					original_beat_times[1]
-					time2 = original_beat_times[1]
-					# freq2 = 220
-					freq2 = cpspch_array[data[2]-1]
-					# print (data[2]-1, cpspch_array[data[2]-1])
-					note_number = 2
-					delta = 5 - original_beat_times[1]
-				except:
-					time2 = 0
-					freq2 = 0
+				# try:
+				# 	original_beat_times[1]
+				# 	time2 = original_beat_times[1]
+				# 	freq2 = 220
+				# 	note_number = 2
+				# 	delta = 5 - original_beat_times[1]
+				# except:
+				# 	time2 = 0
+				# 	freq2 = 0
 
-				try:
-					original_beat_times[2]
-					time3 = original_beat_times[2]
-					freq3 = cpspch_array[data[3]-1]
-					# freq3 = 220
-					# print (data[3]-1, cpspch_array[data[3]-1])
-					note_number = 3
-					delta = 5 - original_beat_times[2]
-				except:
-					time3 = 0
-					freq3 = 0
+				# try:
+				# 	original_beat_times[2]
+				# 	time3 = original_beat_times[2]
+				# 	freq3 = 220
+				# 	note_number = 3
+				# 	delta = 5 - original_beat_times[2]
+				# except:
+				# 	time3 = 0
+				# 	freq3 = 0
 
-				try:
-					original_beat_times[3]
-					time4 = original_beat_times[3]
-					freq4 = cpspch_array[data[4]-1]
-					# freq4 = 220
-					# print (data[4]-1, cpspch_array[data[4]-1])
-					note_number = 4
-					delta = 5 - original_beat_times[3]
-				except:
-					time4 = 0
-					freq4 = 0
-
-					# pt.scoreEvent(False, 'i', (100, time, 1, 0.15, time+5, number_of_notes, next_first_beat))
+				# try:
+				# 	original_beat_times[3]
+				# 	time4 = original_beat_times[3]
+				# 	freq4 = 220
+				# 	note_number = 4
+				# 	delta = 5 - original_beat_times[3]
+				# except:
+				# 	time4 = 0
+				# 	freq4 = 0
+				note_num = 1
+				time_delta = 0
+				first_note = original_beat_times[0]
+				for time in original_beat_times:
+					time_real = time - time_delta
+					pt.scoreEvent(False, 'i', (100, time_real, 1, 0.15, 220, note_num, len(original_beat_times), first_note))
+					time_delta = time
+					note_num = note_num + 1
+					print (100, time_real, 1, 0.15, note_num)
 
 					# pt.scoreEvent(False, 'i', (p1, p2, p3, p4, p5, p6))
 					# pt.scoreEvent(False, 'i', (100, time, 1, 0.15))
-				version = version + 1
-				# print ('====== clearing score (that will take 5 seconds) =======')
-				# sleep(0.5)
-				print ('====== sending =======')
-				print (100, 0, 1, time, freq, time1, freq1, time2, freq2, time3, freq3, time4, freq4, delta, note_number, 1, version)
-				print ('====== end =======')
-				pt.scoreEvent(False, 'i', (100, 0, 1, time, freq, time1, freq1, time2, freq2, time3, freq3, time4, freq4, delta, note_number, 1, version))
+				# pt.scoreEvent(False, 'i', (100, 0, 1, time, freq, time1, freq1, time2, freq2, time3, freq3, time4, freq4, delta, note_number, 1))
+				# print (100, 0, 1, time, freq, time1, freq1, time2, freq2, time3, freq3, time4, freq4, delta, note_number, 1)
 
 					# number_of_notes = number_of_notes + 1
 					# print ('number_of_notes:', number_of_notes)
 					# print ('next first beat:', next_first_beat)
-    				# beat_time = previous_beat_time + note_duration + beat
-    				# previous_beat_time = beat_time
-    				# beat_in_tempo = beat 
+    	# 			beat_time = previous_beat_time + note_duration + beat
+    	# 			previous_beat_time = beat_time
+    	# 			beat_in_tempo = beat 
     				
-    				# previous_beat_time = beat_time
+    	# 			previous_beat_time = beat_time
 				# pt.scoreEvent(False, 'i', (100, (original_beat_times[len(original_beat_times)-1]+1), 5, 0))
 				# pt.scoreEvent(False, 'i', (100, (tempo_beat_times[len(tempo_beat_times)-1]+note_duration), 5, 0.20))
 		

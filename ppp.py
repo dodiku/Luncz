@@ -86,8 +86,8 @@ print ('beat_times.csv done')
 # WRITING A FILE WITH THE TEMPO
 TEXT_FILENAME = WAVE_OUTPUT_FILENAME_NO_EXTENSION + ".txt"
 bpm_value = open(TEXT_FILENAME, 'w')
-bpm_value.write(str(tempo))
-bpm_value.close()
+tempo_text = str(tempo) + '\n'
+bpm_value.write(tempo_text)
 
 
 """""""""""""""""""""""""""""""""""""""
@@ -149,17 +149,49 @@ for frame_i in range(len(hz[0])):
 			strongest_hz[frame_i] = octave_i + 1
 			notes[frame_i] = librosa.hz_to_note(hz[octave_i][frame_i])
 
+print ('the notes are:')
+print (strongest_hz)
+
 # C C# D D# E F F# G G# A  A# B
 # 1 2  3 4  5 6 7  8 9  10 11 12
+strongest_hz_sum = [0,0,0,0,0,0,0,0,0,0,0,0]
+for note in strongest_hz:
+	# print (note)
+	strongest_hz_sum[note-1] = strongest_hz_sum[note-1] + 1
+
+print ('the strong notes (sum) are:')
+print (strongest_hz_sum)
+
+for i in range(len(strongest_hz_sum)):
+	# print (strongest_hz_sum[i], len(strongest_hz), (strongest_hz_sum[i] / len(strongest_hz)))
+	strongest_hz_sum[i] = float(strongest_hz_sum[i]) / len(strongest_hz)
+	
+
+print ('the percentages are:')
+print (strongest_hz_sum)
+
+notes_sorted = [0,0,0,0,0,0,0,0,0,0,0,0]
+for num in range(len(notes_sorted)):
+	 biggest = strongest_hz_sum.index(max(strongest_hz_sum))
+	 notes_sorted[num] = biggest+1
+	 strongest_hz_sum[biggest] = strongest_hz_sum[biggest] - 0.25
+
 # for i in range(len(hz[0])):
 # 	for octave_i in range(len(hz)):
 # 		if octave[i] > strongest_hz[i]:
 # 			strongest_hz[i] = octave[i]
 
 # strongest_hz.append(??)
-print ('the strong notes are:')
-print (strongest_hz)
-# print (notes)
+
+
+print ('the strong notes sorted:')
+print (notes_sorted)
+
+for note in notes_sorted:
+	note_string = str(note) + '\n'
+	bpm_value.write(note_string)
+
+bpm_value.close()
 
 """""""""""""""""""""""""""""""""""""""
 3 - get timbre
