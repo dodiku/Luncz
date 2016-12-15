@@ -7,6 +7,7 @@ import numpy as np
 import csv
 import os
 import shutil
+from time import sleep
 
 # MOVING ALL EXISTING FILES TO A BACKUP DIRECTORY
 
@@ -26,22 +27,37 @@ CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
-RECORD_SECONDS = 5
+RECORD_SECONDS = 6
 AUDIO_OUTPUT_TYPE = ".wav"
 WAVE_OUTPUT_FILENAME_NO_EXTENSION = "_recordings/" + datetime.datetime.now().isoformat()
 WAVE_OUTPUT_FILENAME = "_recordings/" + datetime.datetime.now().isoformat() + AUDIO_OUTPUT_TYPE
 
 audio = pyaudio.PyAudio()
 
+print ('* * * * * * * * * * * * * * * * * * * * * *')
+print ('1...')
+print ('* * * * * * * * * * * * * * * * * * * * * *')
+sleep(1)
+
+print ('* * * * * * * * * * * * * * * * * * * * * *')	
+print ('2...')
+print ('* * * * * * * * * * * * * * * * * * * * * *')
+sleep(1)
+
+print ('* * * * * * * * * * * * * * * * * * * * * *')
+print ('3...')
+print ('* * * * * * * * * * * * * * * * * * * * * *')
+sleep(1)
+
+print ('* * * * * * * * * * * * * * * * * * * * * *')
+print ('RECORDING...')
+print ('* * * * * * * * * * * * * * * * * * * * * *')
+
 stream = audio.open(format=FORMAT,
                 	channels=CHANNELS,
                 	rate=RATE,
                 	input=True,
                 	frames_per_buffer=CHUNK)
-
-print ('* * * * * * * * * * * * * * * * * * * * * *')		
-print ('RECORDING...')
-print ('* * * * * * * * * * * * * * * * * * * * * *')    
 
 frames = []
 
