@@ -1,3 +1,10 @@
+'''
+Thanks a lot to https://github.com/fggp, who provided supported and assistance
+with the 'ctcsound' package throughout the building process.
+See the ctcsound package here: https://github.com/fggp/ctcsound
+See the help thread here: https://github.com/fggp/ctcsound/issues/2
+'''
+
 from __future__ import print_function
 import librosa
 import numpy as np
@@ -23,18 +30,15 @@ destination = './_recordings/backup/'
 
 # MOVING ALL EXISTING FILES TO A BACKUP DIRECTORY
 old_files = os.listdir(source)
-print (old_files)
 for file in old_files:
-	if not file == ".DS_Store":
+	if not (file == ".DS_Store" or file == "README.md"):
 		file_path = source + file
 		shutil.move(file_path, destination) 
 
 
 # STARTING CSOUND
 cs = ctcsound.Csound()
-
-ret = cs.compile_("csound", "-o", "dac", "/Users/drorayalon/Documents/code/#itp/Csound/05-Luncz/Luncz.csd") # new laptop
-# ret = cs.compile_("csound", "-o", "dac", "/Users/dodik/Documents/code/#ITP/Csound/05-Luncz/Luncz.csd") # old laptop
+ret = cs.compile_("csound", "-o", "dac", "Luncz.csd")
 
 if ret == ctcsound.CSOUND_SUCCESS:
 	cs.start()
@@ -49,8 +53,6 @@ if ret == ctcsound.CSOUND_SUCCESS:
 		tempo_beat_times = []
 		recording_tempo = 1
 		data = []
-
-		print ("-=-=-=-=-=-BEGIN-=-=-=-=-=-")
 
 		# GETTING THE TEMPO
 		for file in new_files:
@@ -69,35 +71,31 @@ if ret == ctcsound.CSOUND_SUCCESS:
 						data.append(int(line[0]))
 
 				recording_tempo = data[0]
-				print ('tempo float (recording_tempo):', recording_tempo)
-    			print ('data:', data)
+
 		for file in new_files:
 			if file.endswith(".csv"):
 
 				version = version + 1
 				pt.scoreEvent(False, 'i', (101, 0, 0.0001, version))
 
-				# GETTING DATA FROM CSV FILE
-				print ('csv file:', file)
-				
+				# GETTING DATA FROM CSV FILE				
 				file_path = source + file
-				print (file_path)
 				open_file = open(file_path)
 				csv_file = csv.reader(open_file)
 				for row in csv_file:
 					beat_list.append(row[0])
 				open_file.close()
-				print ('beat list:', beat_list)
 
 				for beat in beat_list:
 					original_beat_times.append(float(beat))
 
-
-				print ('original beat onset times:', original_beat_times)
-
 				n = 1
-				print ('====== sending =======')
-
+				print ('* * * * * * * * * * * * * * * * * * * * * *')
+				print ('SENDING TO CSOUND')
+				print ('* * * * * * * * * * * * * * * * * * * * * *')
+				print ('Getting data from:', file)
+				print ('Beat onset times:', original_beat_times)
+				print ('Csound score lines:')
 				for time in original_beat_times:
 
 					s_per_beat = 60 / recording_tempo
@@ -114,21 +112,21 @@ if ret == ctcsound.CSOUND_SUCCESS:
 
 					if 6 - modified_time < 0.8:
 						pt.scoreEvent(False, 'i', (100, modified_time, 1, 0, cpspch_array[data[n]], version, 1, recording_tempo, loop_length))
+						print (100, modified_time, 1, 0, cpspch_array[data[n]], version, 1, recording_tempo, loop_length)
 					else:
 						pt.scoreEvent(False, 'i', (100, modified_time, 1, 0.2, cpspch_array[data[n]], version, 1, recording_tempo, loop_length))
 						print (100, modified_time, 1, 0.2, cpspch_array[data[n]], version, 1, recording_tempo, loop_length)
 					n = n+1
-				print ('====== end =======')
+				print ('* * * * * * * * * * * * * * * * * * * * * *')
+				print ('END')
+				print ('* * * * * * * * * * * * * * * * * * * * * *')
 
 				# MOVING ALL EXISTING FILES TO A BACKUP DIRECTORY
 				old_files = os.listdir(source)
-				print (old_files)
 				for file in old_files:
-					if not file == ".DS_Store":
+					if not (file == ".DS_Store" or file == "README.md"):
 						file_path = source + file
-						shutil.move(file_path, destination) 
-
-				print ("-=-=-=-=-=-END-=-=-=-=-=-")
+						shutil.move(file_path, destination)
 
 		cs.sleep(5000)
 
