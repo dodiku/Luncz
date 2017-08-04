@@ -2,14 +2,17 @@
 
 # LUNCZ: PLAYING DATA
 Final Project by Dror Ayalon  
-Course: Software Synthesis   
+Course: Software Synthesis @ NYU  
 Lecturer: Jean-Luc Cohen  
 December 22nd, 2016  
 
+### Live Demo
+https://www.youtube.com/watch?v=tDfZ33jsTyk
+
 ### OVERVIEW: MUSIC AS A TOOL
-“Luncz: Playing Data” was my first attempt to generate audio related data from an analog  recording, and to use this data to play new music.  
-The purpose of this project was to build a tool (or an installation) that will create an endless conversation between a musician and a machine. The software allows musicians to record short snippets of music, and uses these recordings to change the background music in the room. The recorded music is being analyzed, and using the result of the audio analysis, beats and changes in timbre are being introduced on the background music.  
-The background music was not designed for listening. Instead, the background music was designed to support the musician, and to leave room for further playing and recording.  
+Luncz allows musicians to record a 10 second snippet of live music played on an acoustic or an amplified instrument, and analyzes the recording to extract the notes, the tempo, and the intensity level of the music. Using this data, Luncz generates new music to accompany the musician.
+
+The music being played by Luncz was not designed for listening. Instead, using the right tempo and harmonics, Luncz helps the musician to stay within the musical context of the original idea, and leaves enough room for this idea to be developed.
 
 ### HOW TO PLAY: INSTRUCTIONS
 Luncz is being run by two Python scripts:  
@@ -64,8 +67,3 @@ Do the following actions: 
 ``$ backend: TkAgg``  
 
 Thanks to [Hercules](http://stackoverflow.com/users/3614839/hercules) for his useful answer on [Stackoverflow](http://stackoverflow.com/questions/29433824/unable-to-import-matplotlib-pyplot-as-plt-in-virtualenv).
-
-
-
-
-
